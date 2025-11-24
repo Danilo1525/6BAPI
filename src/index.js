@@ -7,6 +7,8 @@ app.set('view engine', 'ejs')
 app.set('views',"./views")
 
 require("../rotas/home")(app);
+require("../db/db")(app);
+require("../rotas/getnoticias")(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
