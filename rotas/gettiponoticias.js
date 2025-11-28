@@ -1,12 +1,11 @@
-
 module.exports = (app) => {
-  app.get('/noticias/tiponoticias/:tipo', async (req, res) => {
-    const tipo= req.body.tipo
+  app.get('/noticias/tiponoticia/:tipo', async (req, res) => {
     await app.DBClient.connect();
+    const tipo = req.params.tipo
     const noticias = await app.DBClient.db('portalnoticias')
-      .collection('noticias').find({tiponoticia:tipo}).toArray();
+      .collection('noticias')
+      .find({tiponoticia:tipo}).toArray();
     console.log(noticias);
-
     res.json(noticias)
   })
 }
