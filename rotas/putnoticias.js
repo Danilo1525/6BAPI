@@ -12,7 +12,7 @@ module.exports = (app) => {
                 .updateOne({ _id: id }, {
                     $set: {
                         titulonoticia: titulonoticia, conteudonoticia: conteudonoticia,
-                        tiponoticia: tiponoticia, datahoracadastro: new Date().toLocaleString('pt-BR')
+                        tiponoticia: tiponoticia, datahoracadastro: new Date().toLocaleString('pt-BR', { timeZone: 'America/Cuiaba' })
                     }
                 })
             res.status(200).send("Notícia Atualizada")
