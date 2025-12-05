@@ -4,18 +4,21 @@ module.exports = (app) => {
             const titulonoticia = req.body.titulonoticia
             const conteudonoticia = req.body.conteudonoticia
             const tiponoticia = req.body.tiponoticia
-            await app.DBClient.connect();
+            await app.DBClient.connect(); //aqui o erro
             const resultado = await app.DBClient.db('portalnoticias')
                 .collection('noticias')
                 .insertOne({
                     titulonoticia: titulonoticia,
                     conteudonoticia: conteudonoticia,
                     tiponoticia: tiponoticia,
-                    datahoracadastro: new Date().toLocaleString('pt-BR', { timeZone: 'America/Cuiaba' })
+                    datahoracadastro: new Date()
                 })
-            res.status(200).send("Notícia Cadastrada")
+            if (!resultado.acknowledged) {
+                res.json({ status: 0 })
+            }
+            res.json({ status: 1 })
         } catch (error) {
-            res.status(400).send("Não foi possível cadastrar a notícia")
+            res.json({ status: 0 })
         }
     })
 }
